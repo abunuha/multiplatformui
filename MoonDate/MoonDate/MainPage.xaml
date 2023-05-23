@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MoonDate.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+       
+
+            <Label
+                Text="Moon Date App"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                HorizontalOptions="Center" />
+
+            <Image
+                x:Name="MoonPhaseImage"
+                Source="https://widgets.astronomyapi.com/moon-phase/generated/b0152bf0ad34617b479b9f3c70b862eb825ff620a2bc0b12e6593beb21d96c2e.png"
+                SemanticProperties.Description="Current moon phase"
+                HeightRequest="251"
+                HorizontalOptions="Center" />
+
+            
+
+            <Button
+                x:Name="CounterBtn"
+                Text="Click me"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="OnCounterClicked"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

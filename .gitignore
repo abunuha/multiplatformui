@@ -1,0 +1,7 @@
+*.vsidx
+*.v2
+*.bin
+bin/
+obj/
+.vs/
+Platforms/
