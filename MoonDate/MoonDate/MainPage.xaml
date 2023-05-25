@@ -11,11 +11,6 @@
 
        
 
-            <Label
-                Text="Moon Date App"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
 
             <Image
                 x:Name="MoonPhaseImage"
