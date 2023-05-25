@@ -11,7 +11,14 @@ namespace MoonDate
         private CancellationTokenSource _cancelTokenSource;
         private bool _isCheckingLocation;
 
-        public async Task GetCurrentLocation()
+        public Location GetLocation()
+        {
+            Task<Location> task = GetCurrentLocationAsync();
+            Location loc = task.Result;
+            return loc;
+        }
+
+        private async Task<Location> GetCurrentLocationAsync()
         {
             try
             {
@@ -23,8 +30,10 @@ namespace MoonDate
 
                 Location location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
 
-                if (location != null)
-                    Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+                return location;
+
+               // if (location != null)
+                    //Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
             }
             // Catch one of the following exceptions:
             //   FeatureNotSupportedException
@@ -33,6 +42,7 @@ namespace MoonDate
             catch (Exception ex)
             {
                 // Unable to get location
+                return null;
             }
             finally
             {

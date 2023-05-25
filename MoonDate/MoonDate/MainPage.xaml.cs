@@ -20,6 +20,10 @@ public partial class MainPage : ContentPage
 
     private void MainPage_Loaded(object sender, EventArgs e)
     {
+		CurrentLocation currLoc = new CurrentLocation();
+		//Location loc = currLoc.GetLocation();
+		Location loc = null;
+
 		MoonPhaseImage.Source = MoonPhase.GetCurrentMoonPhaseImage();
         
 		String hijriMonth = null, startDateStr = null;
@@ -38,6 +42,13 @@ public partial class MainPage : ContentPage
 		LastNewMoonLabel.Text = "Last New Moon : " + lastNewMoonDate.ToString();
 
 		NextNewMoonLabel.Text = "Next New Moon : " + MoonPhase.GetNextNewMoonTime(lastNewMoonDate).ToString();
+
+		if(loc == null)
+		{
+			DebugLabel.Text = "Could not find location";
+		}
+		else
+			DebugLabel.Text = loc.ToString();
     }
 
     
