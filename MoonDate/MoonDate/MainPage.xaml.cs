@@ -10,7 +10,13 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
         Loaded += MainPage_Loaded;
+        Quit.Clicked += Quit_Clicked;
 	}
+
+    private void Quit_Clicked(object sender, EventArgs e)
+    {
+        Environment.Exit(0);
+    }
 
     private void MainPage_Loaded(object sender, EventArgs e)
     {
@@ -34,16 +40,6 @@ public partial class MainPage : ContentPage
 		NextNewMoonLabel.Text = "Next New Moon : " + MoonPhase.GetNextNewMoonTime(lastNewMoonDate).ToString();
     }
 
-    private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
-
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
-
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
+    
 }
 
