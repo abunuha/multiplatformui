@@ -24,7 +24,26 @@
                 HeightRequest="251"
                 HorizontalOptions="Center" />
 
-            
+            <Label
+                x:Name="LastNewMoonLabel"
+                Text="LastNewMoon"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Center" />
+
+            <Label
+                x:Name="HijriDateLabel"
+                Text="Hijri Date"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Center" />
+
+            <Label
+                x:Name="NextNewMoonLabel"
+                Text="NextNewMoon"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Center" />
 
             <Button
                 x:Name="CounterBtn"

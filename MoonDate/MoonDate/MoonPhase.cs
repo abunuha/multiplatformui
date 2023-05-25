@@ -1,9 +1,11 @@
 ﻿//using Android.Media.TV;
+using Microsoft.Maui.ApplicationModel;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Buffers.Text;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
@@ -21,6 +23,13 @@ namespace MoonDate
         public class Root
         {
             public Data data { get; set; }
+        }
+
+        //Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+        public class HijriRoot
+        {
+            public List<string> data { get; set; }
+            public bool error { get; set; }
         }
 
         public static String GetCurrentMoonPhaseImageOld()
@@ -75,6 +84,49 @@ namespace MoonDate
             }
             //String imgUrl = "https://widgets.astronomyapi.com/moon-phase/generated/b0152bf0ad34617b479b9f3c70b862eb825ff620a2bc0b12e6593beb21d96c2e.png";
             //return imgUrl;
+        }
+
+        public static void GetHijriMonthStart(ref String hijriMonth,  ref String startDate)
+        {
+            Task<string> taskResult = GetHijriMonthStartAsync();
+            HijriRoot hijri = JsonConvert.DeserializeObject<HijriRoot>(taskResult.Result);
+            hijriMonth = hijri.data[0];
+            startDate = hijri.data[1];
+
+            return;
+        }
+
+        public static async Task<String> GetHijriMonthStartAsync()
+        {
+            
+            using (var httpClient = new HttpClient())
+            {
+                using (var request = new HttpRequestMessage(new HttpMethod("GET"), "https://script.googleusercontent.com/macros/echo?user_content_key=BnsPRHHuxBcfhM32CInhBLdEgNFb05xCXdcvRLRgRnU7fT5ZnSm_YN7ERuP9NmbInZqL99LlJyXejPOu2M4o_dUmZXjVvOw1m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnFY9VcwcNDzlmBFkXA-AuWMsVbLuNMtg95xGFRF89iN_uwsrtfrwFBNtrqhCC94BpkYPYKfS2A_XIH_1soS6bdUvLd5iryZzAdz9Jw9Md8uu&lib=MXcfO9jVcfCTHDb4XJYM8YwPOQRluht6F"))
+                {
+                    request.Headers.TryAddWithoutValidation("cache-control", "no-cache");
+                    request.Headers.TryAddWithoutValidation("postman-token", "5fc6577f-c1ef-5ea8-8a0b-c5371a097516");
+
+                    var response = await httpClient.SendAsync(request).ConfigureAwait(continueOnCapturedContext: false);
+                    response.EnsureSuccessStatusCode();
+                    string content = await response.Content.ReadAsStringAsync();
+                    return content;
+                }
+            }
+        }
+
+        public static DateTime GetLastNewMoonTime()
+        {
+            //""May 19, 2023 at 3:53 pm GMT time of new moon in May 2023
+            DateTime refNewMoonDate = DateTime.SpecifyKind(DateTime.ParseExact("05 19 2023 15 53", "MM dd yyyy HH mm", CultureInfo.CurrentCulture), DateTimeKind.Utc);
+            // Convert to current time zone
+
+            return refNewMoonDate.ToLocalTime();
+        }
+
+        public static DateTime GetNextNewMoonTime(DateTime lastMoonTime)
+        {
+            TimeSpan moonLife = new TimeSpan(29, 12, 0, 0);
+            return lastMoonTime.Add(moonLife);
         }
     }
 }
