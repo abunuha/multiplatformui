@@ -7,6 +7,7 @@ using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
@@ -101,11 +102,16 @@ namespace MoonDate
             
             using (var httpClient = new HttpClient())
             {
+                //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
+                //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault;
+
+
                 using (var request = new HttpRequestMessage(new HttpMethod("GET"), "https://script.googleusercontent.com/macros/echo?user_content_key=BnsPRHHuxBcfhM32CInhBLdEgNFb05xCXdcvRLRgRnU7fT5ZnSm_YN7ERuP9NmbInZqL99LlJyXejPOu2M4o_dUmZXjVvOw1m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnFY9VcwcNDzlmBFkXA-AuWMsVbLuNMtg95xGFRF89iN_uwsrtfrwFBNtrqhCC94BpkYPYKfS2A_XIH_1soS6bdUvLd5iryZzAdz9Jw9Md8uu&lib=MXcfO9jVcfCTHDb4XJYM8YwPOQRluht6F"))
                 {
                     request.Headers.TryAddWithoutValidation("cache-control", "no-cache");
                     request.Headers.TryAddWithoutValidation("postman-token", "5fc6577f-c1ef-5ea8-8a0b-c5371a097516");
-
+                    //System.Net.ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                     var response = await httpClient.SendAsync(request).ConfigureAwait(continueOnCapturedContext: false);
                     response.EnsureSuccessStatusCode();
                     string content = await response.Content.ReadAsStringAsync();
