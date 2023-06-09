@@ -22,9 +22,58 @@ namespace MoonDate
         {
             try
             {
+                Location location = await Geolocation.GetLastKnownLocationAsync();
+                //if (location != null)
+                //location = await Geolocation.GetLocationAsync();
+                //else
+                //await DisplayAlert("Unknown", "Your Location is unknown", "Ok");
+                return location;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public String GetAddress(double latitude, double longitude)
+        {
+            Task<string> task = GetGeocodeReverseData(latitude, longitude);
+            return task.Result;
+        }
+
+        private async Task<string> GetGeocodeReverseData(double latitude = 47.673988, double longitude = -122.121513)
+        {
+            IEnumerable<Placemark> placemarks = await Geocoding.Default.GetPlacemarksAsync(latitude, longitude);
+
+            Placemark placemark = placemarks?.FirstOrDefault();
+
+            if (placemark != null)
+            {
+                return
+                    $"AdminArea:       {placemark.AdminArea}\n" +
+                    $"CountryCode:     {placemark.CountryCode}\n" +
+                    $"CountryName:     {placemark.CountryName}\n" +
+                    $"FeatureName:     {placemark.FeatureName}\n" +
+                    $"Locality:        {placemark.Locality}\n" +
+                    $"PostalCode:      {placemark.PostalCode}\n" +
+                    $"SubAdminArea:    {placemark.SubAdminArea}\n" +
+                    $"SubLocality:     {placemark.SubLocality}\n" +
+                    $"SubThoroughfare: {placemark.SubThoroughfare}\n" +
+                    $"Thoroughfare:    {placemark.Thoroughfare}\n";
+
+            }
+
+            return "";
+        }
+
+        private async Task<Location> GetCurrentLocationAsyncDefunct()
+        {
+            try
+            {
                 _isCheckingLocation = true;
 
-                GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+                GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Lowest, TimeSpan.FromSeconds(10));
 
                 _cancelTokenSource = new CancellationTokenSource();
 

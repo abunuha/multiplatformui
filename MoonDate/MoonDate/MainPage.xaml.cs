@@ -21,8 +21,8 @@ public partial class MainPage : ContentPage
     private void MainPage_Loaded(object sender, EventArgs e)
     {
 		CurrentLocation currLoc = new CurrentLocation();
-		//Location loc = currLoc.GetLocation();
-		Location loc = null;
+		Location loc = currLoc.GetLocation();
+		//Location loc = null;
 
 		MoonPhaseImage.Source = MoonPhase.GetCurrentMoonPhaseImage();
         
@@ -43,12 +43,19 @@ public partial class MainPage : ContentPage
 
 		NextNewMoonLabel.Text = "Next New Moon : " + MoonPhase.GetNextNewMoonTime(lastNewMoonDate).ToString();
 
-		if(loc == null)
+		if (loc == null)
 		{
 			DebugLabel.Text = "Could not find location";
 		}
 		else
+		{
+#if false
+			String address = currLoc.GetAddress(loc.Latitude, loc.Longitude);
 			DebugLabel.Text = loc.ToString();
+#else
+			DebugLabel.Text = "Latitude : " + loc.Latitude + " Longitude : " + loc.Longitude;
+#endif
+		}
     }
 
     
