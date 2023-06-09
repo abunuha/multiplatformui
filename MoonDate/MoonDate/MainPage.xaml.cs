@@ -22,7 +22,13 @@ public partial class MainPage : ContentPage
     {
 		//Location loc = null;
 
-		MoonPhaseImage.Source = MoonPhase.GetCurrentMoonPhaseImage();
+
+		bool isDebugMode = System.Diagnostics.Debugger.IsAttached;
+
+		
+
+
+        MoonPhaseImage.Source = MoonPhase.GetCurrentMoonPhaseImage();
         
 		String hijriMonth = null, startDateStr = null;
         MoonPhase.GetHijriMonthStart(ref hijriMonth, ref startDateStr);
@@ -46,6 +52,7 @@ public partial class MainPage : ContentPage
 
 		Boolean useLocation = false;
 		Location loc = null;
+
 
         if (useLocation)
 		{
@@ -96,6 +103,8 @@ public partial class MainPage : ContentPage
 
 		NewHijriMonthLabel.Text = String.Format("{0} is expected to have {1} days. {2} starts on {3}",
 			hijriMonth, numDays, nextHijriMonth, nextHijriMonthStart.ToString("MMMM dd"));
+
+		DebugLabel.IsVisible = isDebugMode;
 
     }
 
