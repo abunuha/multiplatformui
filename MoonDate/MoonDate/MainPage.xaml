@@ -41,8 +41,15 @@
                 HorizontalOptions="Center" />
 
             <Label
+                x:Name="NewHijriMonthLabel"
+                Text="NewHijriMonthLabel"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="15"
+                HorizontalOptions="Center" />
+            
+            <Label
                 x:Name="DebugLabel"
-                Text="NextNewMoon"
+                Text="DebugLabel"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
                 HorizontalOptions="Center" />

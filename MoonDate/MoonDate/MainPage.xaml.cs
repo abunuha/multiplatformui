@@ -94,7 +94,7 @@ public partial class MainPage : ContentPage
 
 		String nextHijriMonth = "TBD";
 
-		DebugLabel.Text = String.Format("{0} is expected to have {1} days. {2} starts on {3}",
+        NewHijriMonthLabel.Text = String.Format("{0} is expected to have {1} days. {2} starts on {3}",
 			hijriMonth, numDays, nextHijriMonth, nextHijriMonthStart.ToString());
 
     }
