@@ -20,8 +20,6 @@ public partial class MainPage : ContentPage
 
     private void MainPage_Loaded(object sender, EventArgs e)
     {
-		CurrentLocation currLoc = new CurrentLocation();
-		Location loc = currLoc.GetLocation();
 		//Location loc = null;
 
 		MoonPhaseImage.Source = MoonPhase.GetCurrentMoonPhaseImage();
@@ -41,23 +39,71 @@ public partial class MainPage : ContentPage
 		DateTime lastNewMoonDate = MoonPhase.GetLastNewMoonTime();
 		LastNewMoonLabel.Text = "Last New Moon : " + lastNewMoonDate.ToString();
 
-		NextNewMoonLabel.Text = "Next New Moon : " + MoonPhase.GetNextNewMoonTime(lastNewMoonDate).ToString();
+		DateTime nextNewMoonDate = MoonPhase.GetNextNewMoonTime(lastNewMoonDate);
 
-		if (loc == null)
+
+        NextNewMoonLabel.Text = "Next New Moon : " + nextNewMoonDate.ToString();
+
+		Boolean useLocation = false;
+		Location loc = null;
+
+        if (useLocation)
 		{
-			DebugLabel.Text = "Could not find location";
-		}
-		else
-		{
+
+            CurrentLocation currLoc = new CurrentLocation();
+            loc = currLoc.GetLocation();
+            if (loc == null)
+			{
+				DebugLabel.Text = "Could not find location";
+			}
+			else
+			{
 #if false
 			String address = currLoc.GetAddress(loc.Latitude, loc.Longitude);
 			DebugLabel.Text = loc.ToString();
 #else
-			DebugLabel.Text = "Latitude : " + loc.Latitude + " Longitude : " + loc.Longitude;
+				DebugLabel.Text = "Latitude : " + loc.Latitude + " Longitude : " + loc.Longitude;
 #endif
+			}
 		}
+
+		// Compute 29 days from startDate. Add 28 to avoid 1 off error
+		DateTime twentyNinthDay = startDate.AddDays(28);
+
+		DateTime sunsetTime = GetSunsetTime(loc, twentyNinthDay);
+
+		// Where is the sunsetTime on the 29th day relative to the next new moon date
+		TimeSpan newMoonDelta = sunsetTime.Subtract(nextNewMoonDate);
+		//DebugLabel.Text = "New moon delta " + newMoonDelta.ToString();
+
+		DateTime nextHijriMonthStart;
+		// Number of hours of moon age when it is possible to see it by the naked eye
+		int oldEnoughToBeSeen = 17;
+		int numDays;
+		// If the new moon is more than oldEnoughToBeSeen hours old at the time of the sunset on the 29th day, assume the month starts the next day
+		if (newMoonDelta.Hours > oldEnoughToBeSeen)
+		{
+			nextHijriMonthStart = twentyNinthDay.AddDays(1);
+			numDays = 29;
+		}
+		else
+		{
+			nextHijriMonthStart = twentyNinthDay.AddDays(2);
+			numDays = 30;
+		}
+
+		String nextHijriMonth = "TBD";
+
+		DebugLabel.Text = String.Format("{0} is expected to have {1} days. {2} starts on {3}",
+			hijriMonth, numDays, nextHijriMonth, nextHijriMonthStart.ToString());
+
     }
 
-    
+    private DateTime GetSunsetTime(Location loc, DateTime twentyNinthDay)
+    {
+		// For now, return 9 pm
+		// TBD - Refine
+		return twentyNinthDay.AddHours(21);
+    }
 }
 
