@@ -92,7 +92,7 @@ public partial class MainPage : ContentPage
 			numDays = 30;
 		}
 
-		String nextHijriMonth = "TBD";
+		String nextHijriMonth = HijriMonth.GetNextMonth(hijriMonth);
 
         NewHijriMonthLabel.Text = String.Format("{0} is expected to have {1} days. {2} starts on {3}",
 			hijriMonth, numDays, nextHijriMonth, nextHijriMonthStart.ToString());
