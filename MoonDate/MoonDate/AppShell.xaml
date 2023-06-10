@@ -17,14 +17,14 @@
         Route="MainPage" />
         
             <ShellContent
-        Title="Tab2"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="History"
+        ContentTemplate="{DataTemplate local:History}"
+        Route="History" />
         
             <ShellContent
-        Title="Tab3"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Significance"
+        ContentTemplate="{DataTemplate local:Significance}"
+        Route="Significance" />
         
     </TabBar>
 
