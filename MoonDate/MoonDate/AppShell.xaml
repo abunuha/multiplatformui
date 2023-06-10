@@ -4,11 +4,28 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MoonDate"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Disabled" Shell.TabBarBackgroundColor="BlanchedAlmond" Shell.TabBarTitleColor="Black">
+    
+    
 
-    <ShellContent
-        Title="Home"
+    <TabBar>
+        
+            <ShellContent
+        Title="Main"
+                Icon="junk.png"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+        
+            <ShellContent
+        Title="Tab2"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+        
+            <ShellContent
+        Title="Tab3"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+        
+    </TabBar>
 
 </Shell>
