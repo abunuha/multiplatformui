@@ -7,7 +7,8 @@ public class History : ContentPage
 		Content = new VerticalStackLayout
 		{
 			Children = {
-				new Label { HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, Text = "Welcome to .NET MAUI!"
+				new Label { HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center,
+					Text = "Welcome to .NET MAUI! " + MoonDate.App.HijriMonth
 				}
 			}
 		};

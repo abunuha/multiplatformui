@@ -6,6 +6,8 @@ public partial class MainPage : ContentPage
 {
 	int count = 0;
 
+	public String hijriMonth;
+
 	public MainPage()
 	{
 		InitializeComponent();
@@ -25,12 +27,14 @@ public partial class MainPage : ContentPage
 
 		bool isDebugMode = System.Diagnostics.Debugger.IsAttached;
 
-		
 
 
-        MoonPhaseImage.Source = MoonPhase.GetCurrentMoonPhaseImage();
+
+		//MoonPhaseImage.Source = MoonPhase.GetCurrentMoonPhaseImage();
+
+		MoonPhaseImage.Source = MoonDate.App.moonImage;
         
-		String hijriMonth = null, startDateStr = null;
+		String startDateStr = null;
         MoonPhase.GetHijriMonthStart(ref hijriMonth, ref startDateStr);
 
 		//String[] items = startDateStr.Split("-");
@@ -105,6 +109,8 @@ public partial class MainPage : ContentPage
 			hijriMonth, numDays, nextHijriMonth, nextHijriMonthStart.ToString("MMMM dd"));
 
 		DebugLabel.IsVisible = isDebugMode;
+
+		MoonDate.App.HijriMonth = hijriMonth;
 
     }
 

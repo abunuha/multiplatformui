@@ -7,5 +7,10 @@ public partial class App : Application
 		InitializeComponent();
 
 		MainPage = new AppShell();
-	}
+
+		moonImage = MoonPhase.GetCurrentMoonPhaseImage();
+    }
+
+    public static string HijriMonth { get; internal set; }
+    public static string moonImage { get; private set; }
 }
