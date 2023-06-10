@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MoonDate.MainPage">
+             x:Class="MoonDate.MainPage" BackgroundColor="AliceBlue">
 
     <ScrollView>
         <VerticalStackLayout
@@ -17,42 +17,42 @@
                 Source="https://widgets.astronomyapi.com/moon-phase/generated/b0152bf0ad34617b479b9f3c70b862eb825ff620a2bc0b12e6593beb21d96c2e.png"
                 SemanticProperties.Description="Current moon phase"
                 HeightRequest="251"
-                HorizontalOptions="Center" />
+                HorizontalOptions="StartAndExpand" />
 
             <Label
                 x:Name="LastNewMoonLabel"
                 Text="LastNewMoon"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
-                HorizontalOptions="Center" />
+                HorizontalOptions="StartAndExpand" />
 
             <Label
                 x:Name="HijriDateLabel"
                 Text="Hijri Date"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
-                HorizontalOptions="Center" />
+                HorizontalOptions="StartAndExpand" />
 
             <Label
                 x:Name="NextNewMoonLabel"
                 Text="NextNewMoon"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
-                HorizontalOptions="Center" />
+                HorizontalOptions="StartAndExpand" />
 
             <Label
                 x:Name="NewHijriMonthLabel"
                 Text="NewHijriMonthLabel"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
-                HorizontalOptions="Center" />
+                HorizontalOptions="StartAndExpand" />
             
             <Label
                 x:Name="DebugLabel"
                 Text="DebugLabel"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="15"
-                HorizontalOptions="Center" />
+                HorizontalOptions="StartAndExpand" />
 
             <Button
                 x:Name="Quit"
