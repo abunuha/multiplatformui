@@ -35,18 +35,20 @@ public partial class MainPage : ContentPage
 		MoonPhaseImage.Source = MoonDate.App.moonImage;
         
 		String startDateStr = null;
-        MoonPhase.GetHijriMonthStart(ref hijriMonth, ref startDateStr);
+		String lastNewMoonStr = null;
+        MoonPhase.GetHijriMonthStart(ref hijriMonth, ref startDateStr, ref lastNewMoonStr);
 
-		//String[] items = startDateStr.Split("-");
+        //String[] items = startDateStr.Split("-");
 
-		DateTime startDate = DateTime.ParseExact(startDateStr, "yyyy-MM-dd", CultureInfo.CurrentCulture);
-		
+        //DateTime startDate = DateTime.ParseExact(startDateStr, "yyyy-MM-dd", CultureInfo.CurrentCulture);
+        DateTime startDate = DateTime.ParseExact(startDateStr, "MM dd yyyy HH mm", CultureInfo.CurrentCulture);
+		DateTime lastNewMoonDate = DateTime.ParseExact(lastNewMoonStr, "MM dd yyyy HH mm", CultureInfo.CurrentCulture);
 
-		TimeSpan timeSpan = DateTime.Now - startDate;
+        TimeSpan timeSpan = DateTime.Now - startDate;
 
 		HijriDateLabel.Text = "Hijri Date : " + hijriMonth + " " + (timeSpan.Days + 1);
 
-		DateTime lastNewMoonDate = MoonPhase.GetLastNewMoonTime();
+		//DateTime lastNewMoonDate = MoonPhase.GetLastNewMoonTime();
 		LastNewMoonLabel.Text = "Last New Moon : " + lastNewMoonDate.ToString();
 
 		DateTime nextNewMoonDate = MoonPhase.GetNextNewMoonTime(lastNewMoonDate);

@@ -29,7 +29,7 @@ namespace MoonDate
         //Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
         public class HijriRoot
         {
-            public List<string> data { get; set; }
+            public List<List<string>> data { get; set; }
             public bool error { get; set; }
         }
 
@@ -87,12 +87,13 @@ namespace MoonDate
             //return imgUrl;
         }
 
-        public static void GetHijriMonthStart(ref String hijriMonth,  ref String startDate)
+        public static void GetHijriMonthStart(ref String hijriMonth,  ref String startDate, ref String lastNewMoon)
         {
             Task<string> taskResult = GetHijriMonthStartAsync();
             HijriRoot hijri = JsonConvert.DeserializeObject<HijriRoot>(taskResult.Result);
-            hijriMonth = hijri.data[0];
-            startDate = hijri.data[1];
+            hijriMonth = hijri.data[0][0];
+            startDate = hijri.data[0][1];
+            lastNewMoon = hijri.data[0][2];
 
             return;
         }
@@ -106,8 +107,9 @@ namespace MoonDate
                 //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault;
 
-
-                using (var request = new HttpRequestMessage(new HttpMethod("GET"), "https://script.googleusercontent.com/macros/echo?user_content_key=BnsPRHHuxBcfhM32CInhBLdEgNFb05xCXdcvRLRgRnU7fT5ZnSm_YN7ERuP9NmbInZqL99LlJyXejPOu2M4o_dUmZXjVvOw1m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnFY9VcwcNDzlmBFkXA-AuWMsVbLuNMtg95xGFRF89iN_uwsrtfrwFBNtrqhCC94BpkYPYKfS2A_XIH_1soS6bdUvLd5iryZzAdz9Jw9Md8uu&lib=MXcfO9jVcfCTHDb4XJYM8YwPOQRluht6F"))
+                String apiUrl = "https://script.googleusercontent.com/macros/echo?user_content_key=2qiIPUwwa4QVHhdEfaZfG_HT_wmfNPLoUKUlM8tYbwteGwyTVY2yxpIyS_EXdzwMzc3xpOb39Y2oTb-oD0G48tvfLqvDc57gm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnPuabIxi8UFt6yUq0BV2KR95fEv4crN9eXWM-DndkUACotPTPmsqlECXgCjMyOBs5m0Dv11ClYWTdxFBX613DnwP-6Y5oFxMMg&lib=MsTtme7fiu8N2SnpngQ1fBOKl_bsOE08m";
+                //using (var request = new HttpRequestMessage(new HttpMethod("GET"), "https://script.googleusercontent.com/macros/echo?user_content_key=BnsPRHHuxBcfhM32CInhBLdEgNFb05xCXdcvRLRgRnU7fT5ZnSm_YN7ERuP9NmbInZqL99LlJyXejPOu2M4o_dUmZXjVvOw1m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnFY9VcwcNDzlmBFkXA-AuWMsVbLuNMtg95xGFRF89iN_uwsrtfrwFBNtrqhCC94BpkYPYKfS2A_XIH_1soS6bdUvLd5iryZzAdz9Jw9Md8uu&lib=MXcfO9jVcfCTHDb4XJYM8YwPOQRluht6F"))
+                using (var request = new HttpRequestMessage(new HttpMethod("GET"), apiUrl))
                 {
                     request.Headers.TryAddWithoutValidation("cache-control", "no-cache");
                     request.Headers.TryAddWithoutValidation("postman-token", "5fc6577f-c1ef-5ea8-8a0b-c5371a097516");
