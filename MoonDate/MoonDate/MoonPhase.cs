@@ -133,7 +133,7 @@ namespace MoonDate
 
         public static DateTime GetNextNewMoonTime(DateTime lastMoonTime)
         {
-            TimeSpan moonLife = new TimeSpan(29, 12, 0, 0);
+            TimeSpan moonLife = new TimeSpan(29, 12, 44, 0);
             return lastMoonTime.Add(moonLife);
         }
     }
