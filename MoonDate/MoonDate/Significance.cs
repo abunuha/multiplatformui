@@ -12,7 +12,10 @@ public class Significance : ContentPage
 		{
 			Children = {
 				new Label { HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, Text = significance
-				}
+				},
+
+				new WebView { Source = "https://learn.microsoft.com/dotnet/maui"}
+
 			}
 		};
 	}
