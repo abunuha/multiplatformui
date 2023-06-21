@@ -11,10 +11,8 @@ public class Significance : ContentPage
         Content = new VerticalStackLayout
 		{
 			Children = {
-				new Label { HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, Text = significance
-				},
 
-				new WebView { Source = "https://abunuha.github.io/index.html"}
+				new WebView { Source = significance}
 
 			}
 		};

@@ -10,11 +10,13 @@ public class History : ContentPage
 		HijriMonthInfo.GetHijriMonthInfo(MoonDate.App.HijriMonth, ref history, ref significance);
 		Content = new VerticalStackLayout
 		{
-			Children = {
-				new Label { HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center,
-					Text = history
-				}
-			}
+			
+                Children = {
+
+                new WebView { Source = history}
+
+            
+            }
 		};
 	}
 }
