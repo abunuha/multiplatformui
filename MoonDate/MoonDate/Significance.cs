@@ -14,7 +14,7 @@ public class Significance : ContentPage
 				new Label { HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, Text = significance
 				},
 
-				new WebView { Source = "https://learn.microsoft.com/dotnet/maui"}
+				new WebView { Source = "https://abunuha.github.io/index.html"}
 
 			}
 		};
