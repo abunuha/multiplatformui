@@ -32,7 +32,14 @@ public partial class MainPage : ContentPage
 
 		//MoonPhaseImage.Source = MoonPhase.GetCurrentMoonPhaseImage();
 
+		Boolean useWebView = true;
+
+		String mainPageHtml = GitHubPages.GetMainPageHtml();
+
 		MoonPhaseImage.Source = MoonDate.App.moonImage;
+
+		mainPageHtml = mainPageHtml.Replace("MOON_IMAGE", MoonDate.App.moonImage);
+
         
 		String startDateStr = null;
 		String lastNewMoonStr = null;
@@ -46,17 +53,20 @@ public partial class MainPage : ContentPage
 
         TimeSpan timeSpan = DateTime.Now - startDate;
 
-		HijriDateLabel.Text = "Hijri Date : " + hijriMonth + " " + (timeSpan.Days + 1);
+		if(!useWebView) HijriDateLabel.Text = "Hijri Date : " + hijriMonth + " " + (timeSpan.Days + 1);
+		else mainPageHtml = mainPageHtml.Replace("HIJRI_DATE", hijriMonth + " " + (timeSpan.Days + 1));
 
-		//DateTime lastNewMoonDate = MoonPhase.GetLastNewMoonTime();
-		LastNewMoonLabel.Text = "Last New Moon : " + lastNewMoonDate.ToString();
+        //DateTime lastNewMoonDate = MoonPhase.GetLastNewMoonTime();
+        if(!useWebView) LastNewMoonLabel.Text = "Last New Moon : " + lastNewMoonDate.ToString();
+		else mainPageHtml = mainPageHtml.Replace("LAST_NEW_MOON", lastNewMoonDate.ToString());
 
-		DateTime nextNewMoonDate = MoonPhase.GetNextNewMoonTime(lastNewMoonDate);
+        DateTime nextNewMoonDate = MoonPhase.GetNextNewMoonTime(lastNewMoonDate);
 
 
-        NextNewMoonLabel.Text = "Next New Moon : " + nextNewMoonDate.ToString();
+        if(!useWebView) NextNewMoonLabel.Text = "Next New Moon : " + nextNewMoonDate.ToString();
+        else mainPageHtml = mainPageHtml.Replace("NEXT_NEW_MOON", nextNewMoonDate.ToString());
 
-		Boolean useLocation = false;
+        Boolean useLocation = false;
 		Location loc = null;
 
 
@@ -107,14 +117,22 @@ public partial class MainPage : ContentPage
 
 		String nextHijriMonth = HijriMonth.GetNextMonth(hijriMonth);
 
-		NewHijriMonthLabel.Text = String.Format("{0} is expected to have {1} days. {2} starts on {3}",
-			hijriMonth, numDays, nextHijriMonth, nextHijriMonthStart.ToString("MMMM dd"));
+		String nextMonthText = String.Format("{0} is expected to have {1} days. {2} starts on {3}",
+            hijriMonth, numDays, nextHijriMonth, nextHijriMonthStart.ToString("MMMM dd"));
 
-		DebugLabel.IsVisible = isDebugMode;
+		if(!useWebView) NewHijriMonthLabel.Text = nextMonthText;
+		else mainPageHtml = mainPageHtml.Replace("DAYS_EXPECTED", String.Format("{0} is expected to have {1} days", hijriMonth, numDays));
+
+		if (!useWebView) mainPageHtml = mainPageHtml.Replace("NEXT_MONTH_START", String.Format("{0} starts on {1}", nextHijriMonth, nextHijriMonthStart.ToString("MMMM dd")));
+
+
+        DebugLabel.IsVisible = isDebugMode;
 
 		MoonDate.App.HijriMonth = hijriMonth;
 
     }
+
+   
 
     private DateTime GetSunsetTime(Location loc, DateTime twentyNinthDay)
     {
