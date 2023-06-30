@@ -123,7 +123,7 @@ public partial class MainPage : ContentPage
 		if(!useWebView) NewHijriMonthLabel.Text = nextMonthText;
 		else mainPageHtml = mainPageHtml.Replace("DAYS_EXPECTED", String.Format("{0} is expected to have {1} days", hijriMonth, numDays));
 
-		if (!useWebView) mainPageHtml = mainPageHtml.Replace("NEXT_MONTH_START", String.Format("{0} starts on {1}", nextHijriMonth, nextHijriMonthStart.ToString("MMMM dd")));
+		if (useWebView) mainPageHtml = mainPageHtml.Replace("NEXT_MONTH_START", String.Format("{0} starts on {1}", nextHijriMonth, nextHijriMonthStart.ToString("MMMM dd")));
 
 		MainPageWebView.Source = new HtmlWebViewSource { Html = mainPageHtml };
 
