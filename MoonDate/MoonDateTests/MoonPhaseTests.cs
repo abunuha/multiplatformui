@@ -14,7 +14,7 @@ namespace MoonDate.Tests
         [TestMethod()]
         public void GetCurrentMoonPhaseImageTest()
         {
-            String imgUrl = MoonPhase.GetCurrentMoonPhaseImageAsync();
+            //String imgUrl = MoonPhase.GetCurrentMoonPhaseImageAsync();
             Assert.Fail();
         }
     }
