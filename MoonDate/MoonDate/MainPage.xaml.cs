@@ -127,6 +127,20 @@ public partial class MainPage : ContentPage
 
 		MainPageWebView.Source = new HtmlWebViewSource { Html = mainPageHtml };
 
+		if (useWebView)
+		{
+			MoonPhaseImage.IsVisible = false;
+			LastNewMoonLabel.IsVisible = false;
+			HijriDateLabel.IsVisible = false;
+			NextNewMoonLabel.IsVisible = false;
+			NewHijriMonthLabel.IsVisible = false;
+			DebugLabel.IsVisible = false;
+		}
+		else
+		{
+			MainPageWebView.IsVisible = false;
+		}
+
 
         
         DebugLabel.IsVisible = isDebugMode;
