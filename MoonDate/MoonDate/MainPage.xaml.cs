@@ -125,7 +125,10 @@ public partial class MainPage : ContentPage
 
 		if (!useWebView) mainPageHtml = mainPageHtml.Replace("NEXT_MONTH_START", String.Format("{0} starts on {1}", nextHijriMonth, nextHijriMonthStart.ToString("MMMM dd")));
 
+		MainPageWebView.Source = new HtmlWebViewSource { Html = mainPageHtml };
 
+
+        
         DebugLabel.IsVisible = isDebugMode;
 
 		MoonDate.App.HijriMonth = hijriMonth;
